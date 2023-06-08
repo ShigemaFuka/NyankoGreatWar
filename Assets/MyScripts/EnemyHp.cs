@@ -35,7 +35,8 @@ public class EnemyHp : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Chara")
+        // キャラだったら被ダメージ
+        if (coll.gameObject.tag == "Chara" )
         {
             // キャラごとに攻撃値が異なっていても良いように
             CharaHp _charaHp = coll.gameObject.GetComponent<CharaHp>();
@@ -47,6 +48,13 @@ public class EnemyHp : MonoBehaviour
             _enemyMove.Push();
 
             Debug.Log(_hp + this.gameObject.name);
+        }
+        // 城だったら城からのダメージはない
+        else if (coll.gameObject.tag == "Castle")
+        {
+            // 再接触するために
+            _isTouch = true;
+            _enemyMove.Push();
         }
         else
         {

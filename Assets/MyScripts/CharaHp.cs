@@ -34,9 +34,10 @@ public class CharaHp : MonoBehaviour
     {
         // 敵のタグ付いてたら以下を実行
         if(coll.gameObject.tag == "Enemy")
-        {
+        {            
             // 敵キャラごとに攻撃値が異なっていても良いように
             EnemyHp _enemyHp = coll.gameObject.GetComponent<EnemyHp>();
+
             // HP減らしていく
             _hp = _hp - _enemyHp._attackValue;
 
@@ -45,6 +46,13 @@ public class CharaHp : MonoBehaviour
             _move.Push();
 
             Debug.Log(_hp + this.gameObject.name);
+        }
+        // 城だったら城からのダメージはない
+        else if (coll.gameObject.tag == "EnemyCastle")
+        {
+            // 再接触するために
+            _isTouch = true;
+            _move.Push();
         }
         else
         {
