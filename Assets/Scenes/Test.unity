@@ -1875,6 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 80
   _hp: 0
+  _sceneName: GameOver
 --- !u!61 &1764180887
 BoxCollider2D:
   m_ObjectHideFlags: 0

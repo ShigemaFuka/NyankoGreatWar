@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CastleHp : MonoBehaviour
 {
     [SerializeField] int _maxHp;
     [SerializeField] int _hp;
     Move _move;
+    [SerializeField, Tooltip("遷移先")] string _sceneName;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class CastleHp : MonoBehaviour
         if (_hp <= 0)
         {
             Destroy(gameObject);
+            SceneManager.LoadScene(_sceneName);
             Debug.Log("ここでゲームオーバーのシーンへ遷移する");
         }
     }
