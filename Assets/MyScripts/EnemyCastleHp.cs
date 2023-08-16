@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCastleHp : MonoBehaviour
@@ -23,6 +21,7 @@ public class EnemyCastleHp : MonoBehaviour
         if (_hp <= 0)
         {
             Destroy(gameObject);
+            GameManager.Instance.Action(GameManager.GameState.Clear);
             Debug.Log("‚±‚±‚ÅŸ—˜‚ÌƒV[ƒ“‚Ö‘JˆÚ‚·‚é");
         }
     }

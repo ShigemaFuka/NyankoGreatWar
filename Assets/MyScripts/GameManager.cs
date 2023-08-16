@@ -1,29 +1,44 @@
 using UnityEngine;
 
-
 public class GameManager : MonoBehaviour
 {
+    [Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default; 
     public static GameManager Instance = default;
+    [SerializeField] GameState _state = GameState.Start; 
     public enum GameState
     {
         Start,
         /// <summary> スタートから3秒カウントし、InGameに遷移 </summary>
         Prepare,
         InGame,
-        /// <summary> ゲームオーバー・ゲームクリア </summary>
-        End
+        Clear,
+        GameOver
     }
 
     void Awake()
     {
         Instance = this;
     }
-    void Action(GameState state)
+    void Start()
     {
-        if(state == GameState.Start)
+        //_fadeOut = FindAnyObjectByType<FadeOutIn>();
+        //if (_state == GameState.Start)
+        //{
+        //    _fadeOut.ToFadeIn();
+        //}
+    }
+    private void OnEnable()
+    {
+        _fadeOut = FindAnyObjectByType<FadeOutIn>();
+        if (_state == GameState.Start)
         {
-            StartAction(); 
+            _fadeOut.ToFadeIn();
+
         }
+    }
+    public void Action(GameState state)
+    {
+        
         if(state == GameState.Prepare)
         {
 
@@ -32,16 +47,18 @@ public class GameManager : MonoBehaviour
         {
             
         }
-        if(state == GameState.End)
+        if(state == GameState.Clear)
         {
-            EndAction();
+            if (_fadeOut) _fadeOut.ToFadeOut("Clear");
+            else Debug.Log("state = Clear");
+        }
+        if(state == GameState.GameOver)
+        {
+            if (_fadeOut) _fadeOut.ToFadeOut("GameOver");
+            else Debug.Log("state = GameOver");
         }
     }
     void StartAction()
-    {
-
-    }
-    void EndAction()
     {
 
     }

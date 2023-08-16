@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 ///  ゲームオーバーやリザルトへ遷移する前に、画面を暗くする 
 /// </summary>
-public class FadeOut : MonoBehaviour
+public class FadeOutIn : MonoBehaviour
 {
     [SerializeField, Tooltip("フェード用 Image")] Image _fadeImage = default; 
     [SerializeField, Tooltip("フェードアウト完了までにかかる時間（秒）")] float _fadeTime = 1;

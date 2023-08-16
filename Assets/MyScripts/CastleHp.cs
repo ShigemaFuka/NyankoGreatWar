@@ -11,23 +11,20 @@ public class CastleHp : MonoBehaviour
     [SerializeField, Tooltip("遷移先")] string _sceneName;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         // HP初期化
         _hp = _maxHp;
-        //_isTouch = false;
 
         _move = this.gameObject.GetComponent<Move>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (_hp <= 0)
         {
             Destroy(gameObject);
-            SceneManager.LoadScene(_sceneName);
+            GameManager.Instance.Action(GameManager.GameState.GameOver);
+            //SceneManager.LoadScene(_sceneName);
             Debug.Log("ここでゲームオーバーのシーンへ遷移する");
         }
     }
