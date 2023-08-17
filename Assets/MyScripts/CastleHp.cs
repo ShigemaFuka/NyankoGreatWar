@@ -23,7 +23,7 @@ public class CastleHp : MonoBehaviour
         if (_hp <= 0)
         {
             Destroy(gameObject);
-            GameManager.Instance.Action(GameManager.GameState.GameOver);
+            GameManager.Instance.ToGameOver();
             //SceneManager.LoadScene(_sceneName);
             Debug.Log("ここでゲームオーバーのシーンへ遷移する");
         }

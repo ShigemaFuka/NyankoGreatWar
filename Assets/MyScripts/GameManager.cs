@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default; 
+    [SerializeField, Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default; 
     public static GameManager Instance = default;
-    [SerializeField] GameState _state = GameState.Start; 
+    [SerializeField] static GameState _state = GameState.InGame;
+    public GameState State { get => _state; set => _state = value; }
+
     public enum GameState
     {
         Start,
@@ -19,47 +22,59 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    /// <summary>
+    /// デバッグ時、どこから初めてもいいように、適宜ステートを変更する 
+    /// </summary>
     void Start()
     {
-        //_fadeOut = FindAnyObjectByType<FadeOutIn>();
-        //if (_state == GameState.Start)
-        //{
-        //    _fadeOut.ToFadeIn();
-        //}
-    }
-    private void OnEnable()
-    {
-        _fadeOut = FindAnyObjectByType<FadeOutIn>();
-        if (_state == GameState.Start)
+        if (SceneManager.GetActiveScene().name == "Start")
         {
-            _fadeOut.ToFadeIn();
-
+            _state = GameState.Start;
+        }
+        if (SceneManager.GetActiveScene().name == "Test")
+        {
+            _state = GameState.InGame; 
+        }
+        if (SceneManager.GetActiveScene().name == "Clear")
+        {
+            _state = GameState.Clear;
+        }
+        if (SceneManager.GetActiveScene().name == "GameOver")
+        {
+            _state = GameState.GameOver;
         }
     }
-    public void Action(GameState state)
+    void Update()
     {
-        
-        if(state == GameState.Prepare)
+        if(_state == GameState.Prepare)
         {
 
         }
-        if(state == GameState.InGame)
+        if(_state == GameState.InGame)
+        {
+            if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
+        }
+        if(_state == GameState.Clear)
+        {
+
+        }
+        if (_state == GameState.GameOver)
         {
             
         }
-        if(state == GameState.Clear)
-        {
-            if (_fadeOut) _fadeOut.ToFadeOut("Clear");
-            else Debug.Log("state = Clear");
-        }
-        if(state == GameState.GameOver)
-        {
-            if (_fadeOut) _fadeOut.ToFadeOut("GameOver");
-            else Debug.Log("state = GameOver");
-        }
     }
-    void StartAction()
-    {
 
+    public void ToClear()
+    {
+        if (_fadeOut) _fadeOut.ToFadeOut("Clear");
+        else Debug.Log(_fadeOut + " がない state = Clear");
+        _state = GameState.Clear; 
+    }
+    public void ToGameOver()
+    {
+        if (_fadeOut) _fadeOut.ToFadeOut("GameOver");
+        else Debug.Log(_fadeOut + " がない state = GameOver");
+        _state = GameState.GameOver;
     }
 }
