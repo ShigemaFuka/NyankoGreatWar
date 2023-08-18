@@ -22,7 +22,6 @@ public class EnemyCastleHp : MonoBehaviour
         {
             Destroy(gameObject);
             GameManager.Instance.ToClear();
-            Debug.Log("‚±‚±‚ÅŸ—˜‚ÌƒV[ƒ“‚Ö‘JˆÚ‚·‚é");
         }
     }
 

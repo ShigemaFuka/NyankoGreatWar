@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33371abb6eedf34aa0c5b9e0bbfa3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
+  _speed: 1
   _powerDirection: {x: 1, y: 1}
   _powerScale: 5
 --- !u!58 &-8871144202153268976
@@ -137,9 +137,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.012739738}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.48726025
 --- !u!114 &6156467814805717679
 MonoBehaviour:
   m_ObjectHideFlags: 0
