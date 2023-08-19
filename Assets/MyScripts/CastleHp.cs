@@ -1,22 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 城のHPが0になったらゲームマネジャーのゲームオーバー関数を呼び出す
+/// 敵キャラが接触してきたら、HP減少 
+/// </summary>
 public class CastleHp : MonoBehaviour
 {
     [SerializeField] int _maxHp;
     [SerializeField] int _hp;
-    Move _move;
-    [SerializeField, Tooltip("遷移先")] string _sceneName;
-
 
     void Start()
     {
         // HP初期化
         _hp = _maxHp;
-
-        _move = this.gameObject.GetComponent<Move>();
     }
     void Update()
     {
@@ -24,7 +20,6 @@ public class CastleHp : MonoBehaviour
         {
             Destroy(gameObject);
             GameManager.Instance.ToGameOver();
-            //SceneManager.LoadScene(_sceneName);
             Debug.Log("ここでゲームオーバーのシーンへ遷移する");
         }
     }

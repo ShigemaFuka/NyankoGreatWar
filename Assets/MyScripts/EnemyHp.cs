@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -20,7 +18,6 @@ public class EnemyHp : MonoBehaviour
         _isTouch = false;
 
         _enemyMove = this.gameObject.GetComponent<EnemyMove>();
-
     }
 
     // Update is called once per frame

@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         }
         if(_state == GameState.InGame)
         {
+            // 2Žü–Ú‚ÍNull‚É‚È‚Á‚½  
             if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
         }
         if(_state == GameState.Clear)
@@ -67,12 +68,13 @@ public class GameManager : MonoBehaviour
 
     public void ToClear()
     {
-        if (_fadeOut) _fadeOut.ToFadeOut("Clear");
-        else Debug.Log(_fadeOut + " ‚ª‚È‚¢ state = Clear");
+        if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
+        _fadeOut.ToFadeOut("Clear");
         _state = GameState.Clear; 
     }
     public void ToGameOver()
     {
+        if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
         if (_fadeOut) _fadeOut.ToFadeOut("GameOver");
         else Debug.Log(_fadeOut + " ‚ª‚È‚¢ state = GameOver");
         _state = GameState.GameOver;

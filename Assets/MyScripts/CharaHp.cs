@@ -1,7 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 出陣するキャラのHPを管理する
+/// 敵キャラに接触したら、その敵キャラの攻撃値分、自身のHPを減らす
+/// それと同時に、「EnemyHp」内で、敵キャラもこのキャラの攻撃値分、敵キャラのHPを減らす
+/// 敵キャラと接触したら、侵攻方向の後方へ自身を吹っ飛ばす
+/// 敵の城に接触しても自身のHPは減らないが攻撃にはなるし、自身は吹っ飛ぶ
+/// </summary>
 public class CharaHp : MonoBehaviour
 {
     [SerializeField] int _maxHp;
@@ -10,7 +15,6 @@ public class CharaHp : MonoBehaviour
     [SerializeField, Tooltip("再接触のための")] public bool _isTouch;
     Move _move;
 
-    // Start is called before the first frame update
     void Start()
     {
         // HP初期化

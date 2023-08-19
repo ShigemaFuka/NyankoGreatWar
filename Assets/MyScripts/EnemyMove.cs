@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -12,14 +10,12 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] float _powerScale = 5.0f;
     EnemyHp _enemyHp;
 
-    // Start is called before the first frame update
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _enemyHp = this.gameObject.GetComponent<EnemyHp>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
