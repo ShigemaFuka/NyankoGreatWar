@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fb05ae1ab304047862e3ec808a7e8b, type: 3}
+  m_Name: Nyanko_mouse
+  m_EditorClassIdentifier: 
+  maxHp: 1
+  attack: 1
+  speed: 2
+  score: 0
+  selfImpactPower: 5
+  info: "\u751F\u6210\u901F\u5EA6\u30FB\u30B9\u30D4\u30FC\u30C9\u7279\u5316\nHP\u5373\u6B7B\n\u58C1\u5F79"
