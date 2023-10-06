@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyHp : MonoBehaviour
 {
-    [SerializeField, Tooltip("敵の攻撃値（CharaHpで参照される）")] public int _attackValue;
-    [SerializeField] int _maxHp;
-    [SerializeField] int _hp;
+    [SerializeField, Tooltip("キャラのデータ")] CharacterData _characterData;
+    [Tooltip("敵の攻撃値（CharaHpで参照される）")] public int _attackValue;
+    //[SerializeField] int _maxHp;
+    int _hp;
     [SerializeField, Tooltip("再接触のための")] public bool _isTouch;
     EnemyMove _enemyMove;
 
@@ -14,7 +15,8 @@ public class EnemyHp : MonoBehaviour
     void Start()
     {
         // HP初期化
-        _hp = _maxHp;
+        _hp = _characterData.Maxhp;
+        _attackValue = _characterData.Attack;
         _isTouch = false;
 
         _enemyMove = this.gameObject.GetComponent<EnemyMove>();
@@ -44,7 +46,7 @@ public class EnemyHp : MonoBehaviour
             _isTouch = true;
             _enemyMove.Push();
 
-            Debug.Log(_hp + this.gameObject.name);
+            Debug.Log("hp : " + _hp + this.gameObject.name);
         }
         // 城だったら城からのダメージはない
         else if (coll.gameObject.tag == "Castle")

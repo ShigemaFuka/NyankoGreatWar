@@ -9,20 +9,21 @@ using UnityEngine;
 /// </summary>
 public class CharaHp : MonoBehaviour
 {
-    [SerializeField] int _maxHp;
-    [SerializeField] int _hp;
-    [SerializeField, Tooltip("EnemyHpで参照される")] public int _attackValue;
+    [SerializeField, Tooltip("キャラのデータ")] CharacterData _characterData;
+    //[SerializeField] int _maxHp;
+    int _hp;
+    [Tooltip("EnemyHpで参照される")] public int _attackValue;
     [SerializeField, Tooltip("再接触のための")] public bool _isTouch;
     Move _move;
 
     void Start()
     {
+        _attackValue = _characterData.Attack;
         // HP初期化
-        _hp = _maxHp;
+        _hp = _characterData.Maxhp;
         _isTouch = false;
 
         _move = this.gameObject.GetComponent<Move>();
-
     }
 
     // Update is called once per frame
@@ -41,6 +42,7 @@ public class CharaHp : MonoBehaviour
         {            
             // 敵キャラごとに攻撃値が異なっていても良いように
             EnemyHp _enemyHp = coll.gameObject.GetComponent<EnemyHp>();
+
 
             // HP減らしていく
             _hp = _hp - _enemyHp._attackValue;

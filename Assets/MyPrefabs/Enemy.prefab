@@ -100,9 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3102a40b50e34494d9603c8791664b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterData: {fileID: 11400000, guid: a70fd53be7d4b0b45b54b33299cb5bfe, type: 2}
   _attackValue: 1
-  _maxHp: 10
-  _hp: 0
   _isTouch: 0
 --- !u!50 &2966525196024617561
 Rigidbody2D:

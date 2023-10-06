@@ -121,9 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33371abb6eedf34aa0c5b9e0bbfa3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
   _powerDirection: {x: 1, y: 1}
-  _powerScale: 5
+  _characterData: {fileID: 11400000, guid: a40b77e36a788e34b9dd7b22765e874c, type: 2}
 --- !u!58 &6751652434323326867
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -152,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68e74ca18b714e46990ab0e314a15b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 1
+  _characterData: {fileID: 11400000, guid: a40b77e36a788e34b9dd7b22765e874c, type: 2}
   _hp: 0
   _attackValue: 1
   _isTouch: 0
