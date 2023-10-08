@@ -154,3 +154,5 @@ MonoBehaviour:
   _characterData: {fileID: 11400000, guid: 094d2e8ee6f9587478d5855c77fc4919, type: 2}
   _attackValue: 2
   _isTouch: 0
+  _tagNameOfTarget: Enemy
+  _tagNameOfCastle: EnemyCastle

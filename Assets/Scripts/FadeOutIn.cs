@@ -11,7 +11,12 @@ public class FadeOutIn : MonoBehaviour
     [SerializeField, Tooltip("フェード用 Image")] Image _fadeImage = default; 
     [SerializeField, Tooltip("フェードアウト完了までにかかる時間（秒）")] float _fadeTime = 1;
     float _timer = 0; 
-    Color c; 
+    Color c;
+
+    void Start()
+    {
+        _fadeImage.enabled = false;
+    }
 
     /// <summary> フェードアウトを開始する </summary>
     public void ToFadeOut(string _sceneName)
@@ -22,6 +27,7 @@ public class FadeOutIn : MonoBehaviour
 
     IEnumerator FadeOutRoutine(string sceneName)
     {
+        _fadeImage.enabled = true;
         // 無限ループ  
         while (true)
         {

@@ -1,12 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// シーン遷移する関数を書いており、他のスクリプトが必要に応じて参照
+/// コスト計算のための、時間計算をし、参照できるようにする
+/// InGame内でのTimerFlag切り替えは、コスト計算スクリプトで行う
+/// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default; 
+    [SerializeField, Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default;
     public static GameManager Instance = default;
     [SerializeField] static GameState _state = GameState.InGame;
     public GameState State { get => _state; set => _state = value; }
+    //[SerializeField, Tooltip("コスト計算用の時間加算")] float _timer = 0f;
+    //public float Timer { get => _timer; set => _timer = value; }
+    //[SerializeField, Tooltip("コスト計算用の時間加算フラグ")] bool _timerFlag;
+    //public bool TimerFlag { get => _timerFlag; set => _timerFlag = value; }
 
     public enum GameState
     {
@@ -34,8 +42,10 @@ public class GameManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Test")
         {
-            _state = GameState.InGame; 
-        }
+            _state = GameState.InGame;
+           // TimerFlag = true;
+        } 
+        //else TimerFlag = false;
         if (SceneManager.GetActiveScene().name == "Clear")
         {
             _state = GameState.Clear;
@@ -51,16 +61,17 @@ public class GameManager : MonoBehaviour
         {
 
         }
-        if(_state == GameState.InGame)
+        else if(_state == GameState.InGame)
         {
             // 2周目はNullになった  
             if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
+            //if(TimerFlag) Timer += Time.deltaTime;
         }
-        if(_state == GameState.Clear)
+        else if(_state == GameState.Clear)
         {
 
         }
-        if (_state == GameState.GameOver)
+        else if (_state == GameState.GameOver)
         {
             
         }

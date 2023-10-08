@@ -1,18 +1,25 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+/// <summary>
+/// 城のHPをスライダに反映
+/// HPが0で終了のためシーン遷移
+/// 接触してきたキャラクターの攻撃値に応じてダメージを受ける
+/// </summary>
 public class EnemyCastleHp : MonoBehaviour
 {
     [SerializeField] int _maxHp;
     [SerializeField] int _hp;
-    Move _move;
+    [SerializeField, Tooltip("スライダー")] Slider _hpSlider;
+    //Move _move;
 
     // Start is called before the first frame update
     void Start()
     {
         // HP初期化
         _hp = _maxHp;
-
-        _move = this.gameObject.GetComponent<Move>();
+        _hpSlider.maxValue = _maxHp;
+        _hpSlider.value = _hp;
+        //_move = this.gameObject.GetComponent<Move>();
     }
 
     // Update is called once per frame
@@ -20,7 +27,7 @@ public class EnemyCastleHp : MonoBehaviour
     {
         if (_hp <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             GameManager.Instance.ToClear();
         }
     }
@@ -34,6 +41,7 @@ public class EnemyCastleHp : MonoBehaviour
             CharaHp _charaHp = coll.gameObject.GetComponent<CharaHp>();
             // HP減らしていく
             _hp = _hp - _charaHp._attackValue;
+            _hpSlider.value = _hp; 
 
             Debug.Log(_hp + this.gameObject.name);
         }

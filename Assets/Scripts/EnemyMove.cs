@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField, Tooltip("キャラのデータ")] CharacterData _characterData;
+    public CharacterData CharacterData { get => _characterData; set => _characterData = value; }
     Rigidbody2D _rigidbody2D;
-    [SerializeField] float _speed = 2f;
+    //[SerializeField] float _speed = 2f;
     [SerializeField] Vector2 _powerDirection = Vector2.up + Vector2.left;
-    [SerializeField] float _powerScale = 5.0f;
+    //[SerializeField] float _powerScale = 5.0f;
     EnemyHp _enemyHp;
 
     void Start()
@@ -26,12 +28,12 @@ public class EnemyMove : MonoBehaviour
         // Push()が不要な時
         if (_enemyHp._isTouch != true)
         {
-            _rigidbody2D.velocity = new Vector2(_speed, 0);
+            _rigidbody2D.velocity = new Vector2(_characterData.Speed, 0);
         }
     }
 
     public void Push()
     {
-        _rigidbody2D.AddForce(_powerDirection * _powerScale, ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(_powerDirection * _characterData.SelfImpactPower, ForceMode2D.Impulse);
     }
 }
