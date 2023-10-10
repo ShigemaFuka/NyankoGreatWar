@@ -11,6 +11,10 @@ using UnityEngine;
 /// </summary>
 public class CharacterData : ScriptableObject
 {
+    //[SerializeField, Tooltip("int型")] int id;
+    //public int Id { get { return id; } }
+
+    [SerializeField] Ids id;
     [SerializeField] int maxHp;
     public int Maxhp { get { return maxHp; } }
     [SerializeField, Tooltip("固定のATK値")] int attack;
@@ -24,4 +28,12 @@ public class CharacterData : ScriptableObject
     public float Cost { get { return cost; } }
     [SerializeField, Tooltip("このキャラを生成するために必要なコスト")] int cost;
     [SerializeField, Tooltip("制作時用の説明文"), TextArea(1, 5)] string info;
+    enum Ids
+    {
+        Mouse,
+        Tiger,
+        Cow,
+        Dragon,
+        None
+    }
 }
