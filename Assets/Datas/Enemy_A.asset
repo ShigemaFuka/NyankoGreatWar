@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Enemy_A
   m_EditorClassIdentifier: 
   maxHp: 10
-  attack: 1
-  speed: 1
-  score: 0
+  attack: 2
+  speed: -0.5
+  score: 3
   selfImpactPower: 3
-  info: 
+  cost: 0
+  info: "Speed\u304C\u30DE\u30A4\u30CA\u30B9\u3060\u3068\u53F3\u306B\u79FB\u52D5\n\u5C11\u3057\u5F37\u3081"
