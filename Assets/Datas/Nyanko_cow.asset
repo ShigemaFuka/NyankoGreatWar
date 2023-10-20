@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fb05ae1ab304047862e3ec808a7e8b, type: 3}
   m_Name: Nyanko_cow
   m_EditorClassIdentifier: 
+  id: 2
   maxHp: 5
   attack: 2
-  speed: 1
+  speed: 0.5
   score: 0
-  selfImpactPower: 5
+  selfImpactPower: 2.5
+  cost: 500
   info: "\u30BF\u30F3\u30AF\n"
