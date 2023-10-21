@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fb05ae1ab304047862e3ec808a7e8b, type: 3}
   m_Name: Nyanko_tiger
   m_EditorClassIdentifier: 
+  id: 1
   maxHp: 3
   attack: 3
-  speed: 1.5
+  speed: 1
   score: 0
-  selfImpactPower: 8
+  selfImpactPower: 4
+  cost: 230
   info: "\u653B\u6483\u7279\u5316\n\u304B\u306A\u308A\u5439\u304D\u98DB\u3076\n\n\n"
