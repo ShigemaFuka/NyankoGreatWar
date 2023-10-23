@@ -57,4 +57,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade3b7db5d9accb4d89a63d39008ddc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 2
+  _fadeOut: {fileID: 0}
+  _ids: []
+  _characterDataList: {fileID: 11400000, guid: 4c65c7d5f9d3dfa4cb369af949acb677, type: 2}
+  _generators:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _isGet: 0

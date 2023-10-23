@@ -14,11 +14,18 @@ public class ChangeScene : MonoBehaviour
     {
         if (Instance.State == GameState.Start)
         {
-            Instance.State = GameState.InGame;
+            Instance.State = GameState.Prepare;
+            Debug.Log("Start->Prepare");
         }
-        if (Instance.State == GameState.Clear || Instance.State == GameState.GameOver)
+        else if (Instance.State == GameState.Prepare)
+        {
+            Instance.State = GameState.InGame;
+            Debug.Log("Prepare->InGame");
+        }
+        else if (Instance.State == GameState.Clear || Instance.State == GameState.GameOver)
         {
             Instance.State = GameState.Start;
+            Debug.Log("Clear||GameOver->Start");
         }
         SceneManager.LoadScene(_sceneName);
     }

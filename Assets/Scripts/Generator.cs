@@ -3,43 +3,55 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 一定時間おきに指定したプレハブから GameObject を生成するコンポーネント
+/// この中にボタンクリック時に、フラグを真にする関数を入れている
 /// </summary>
 public class Generator : MonoBehaviour
 {
-    [SerializeField, Tooltip("一定時間おきに生成するプレハブ")] GameObject _prefab = default;
-    [SerializeField, Tooltip("生成する間隔（秒）")] float _interval = 1f;
-    [SerializeField, Tooltip("true の場合、開始時にすぐ生成する")] bool _generateOnStart = true;
-    [SerializeField, Tooltip("タイマー計測用変数")] float _timer;
-    [SerializeField, Tooltip("ボタンがクリックされた")] bool _isClick;
     [SerializeField, Tooltip("スポーン場所")] GameObject _gameObject;
-    [SerializeField, Tooltip("クリックできるかUI")] Slider _slider;
-    [SerializeField, Tooltip("時間経過まえにフラグ真にするのを防ぐ")] Button _button;
+    [SerializeField, Tooltip("ゲージUI_インターバルに依存")] Slider _slider;
+    [SerializeField, Tooltip("ボタンがクリックされた")] bool _isClick;
+    [SerializeField, Tooltip("タイマー計測用変数")] float _timer;
+    [SerializeField, Tooltip("true の場合、開始時にすぐ生成する")] bool _generateOnStart = true;
     [SerializeField, Tooltip("生成物を置いておく空の親オブジェクト")] GameObject _emptyParent;
     [SerializeField, Tooltip("コスト管理スクリプト")] CostController _costController;
-    [SerializeField, Tooltip("キャラ生成にかかるコスト")] float _cost;
     [SerializeField, Tooltip("ボタンを暗くするUI(クリック判定なし)")] RawImage _darkMask;
+    [SerializeField, Tooltip("準備したか")] bool _isPrepare;
+    [Header("GMがセットするor参照する")]
+    [SerializeField, Tooltip("一定時間おきに生成するプレハブ")] public GameObject _prefab = default;
+    [SerializeField, Tooltip("時間経過前にフラグ真にするのを防ぐ")] Button _button;
+    [SerializeField, Tooltip("見かけ上のボタンのUI")] public GameObject _image;
+    [SerializeField, Tooltip("生成する間隔（秒）")] public float _interval = 1f;
+    [Space]
+    [Header("プレハブに依存")]
+    [SerializeField, Tooltip("キャラ生成にかかるコスト(プレハブのコストに依存)")] float _cost;
 
     void Start()
     {
-        _darkMask.enabled = true;
-        Move move = _prefab.GetComponent<Move>();
-        _cost = move.CharacterData.Cost;
-        if (_slider)
+        _isPrepare = false;
+    }
+
+    void Update()
+    {
+        if (!_isPrepare)
         {
-            _slider.maxValue = _interval;
-            _slider.value = 0;
+            Prepare();
+            _isPrepare = true;
         }
-        _button.enabled = false;
-        if (_generateOnStart)
+        Generate();
+    }
+
+    public void OnClick()
+    {
+        // ボタンクリック時
+        if(_isClick == false)
         {
-            _timer = _interval;
-            _button.enabled = true;
+            _isClick = true;
         }
     }
 
-    public void Update()
+    void Generate()
     {
-        // Time.deltaTime は「前フレームからの経過時間」を取得する
+        // Time.deltaTimeは「前フレームからの経過時間」を取得する
         _timer += Time.deltaTime;
 
         // 「経過時間」が「生成する間隔」を超えたら
@@ -65,12 +77,26 @@ public class Generator : MonoBehaviour
         _slider.value = _timer;
     }
 
-    public void OnClick()
+    /// <summary>
+    /// start関数で行うと、GMのupdate関数の処理の前に呼ばれてしまうため、
+    /// その処理が終わってから、こちらの準備をする
+    /// プレハブに応じてコストを変更・インターバルはＧＭ側が変更する
+    /// </summary>
+    void Prepare()
     {
-        // ボタンクリック時
-        if(_isClick == false)
+        _darkMask.enabled = true;
+        Move move = _prefab.GetComponent<Move>();
+        _cost = move.CharacterData.Cost;
+        if (_slider)
         {
-            _isClick = true;
+            _slider.maxValue = _interval;
+            _slider.value = 0;
+        }
+        _button.enabled = false;
+        if (_generateOnStart)
+        {
+            _timer = _interval;
+            _button.enabled = true;
         }
     }
 }

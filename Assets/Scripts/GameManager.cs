@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 /// <summary>
 /// シーン遷移する関数を書いており、他のスクリプトが必要に応じて参照
 /// コスト計算のための、時間計算をし、参照できるようにする
@@ -9,17 +11,17 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField, Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default;
     public static GameManager Instance = default;
-    [SerializeField] static GameState _state = GameState.InGame;
+    static GameState _state = GameState.InGame;
     public GameState State { get => _state; set => _state = value; }
-    //[SerializeField, Tooltip("コスト計算用の時間加算")] float _timer = 0f;
-    //public float Timer { get => _timer; set => _timer = value; }
-    //[SerializeField, Tooltip("コスト計算用の時間加算フラグ")] bool _timerFlag;
-    //public bool TimerFlag { get => _timerFlag; set => _timerFlag = value; }
+    [SerializeField, Tooltip("選択されたId")] List<string> _ids;
+    public List<string> IDs { get => _ids; set => _ids = value; }
+    [SerializeField] CharacterDataList _characterDataList = default;
+    [SerializeField, Tooltip("ジェネレーター")] GameObject[] _generators = new GameObject[3];
+    [SerializeField, Tooltip("ジェネレーターを取得したかのフラグ")] bool _isGet;
 
     public enum GameState
     {
         Start,
-        /// <summary> スタートから3秒カウントし、InGameに遷移 </summary>
         Prepare,
         InGame,
         Clear,
@@ -29,51 +31,60 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }
-
-    /// <summary>
-    /// デバッグ時、どこから初めてもいいように、適宜ステートを変更する 
-    /// </summary>
-    void Start()
-    {
+        Debug.LogWarning(SceneManager.GetActiveScene().name);
+        _isGet = false;
+        //デバッグ時用
         if (SceneManager.GetActiveScene().name == "Start")
         {
-            _state = GameState.Start;
+            State = GameState.Start;
+        }
+        if (SceneManager.GetActiveScene().name == "SelectParty")
+        {
+            State = GameState.Prepare;
         }
         if (SceneManager.GetActiveScene().name == "Test")
         {
-            _state = GameState.InGame;
-           // TimerFlag = true;
-        } 
-        //else TimerFlag = false;
+            State = GameState.InGame;
+        }
         if (SceneManager.GetActiveScene().name == "Clear")
         {
-            _state = GameState.Clear;
+            State = GameState.Clear;
         }
         if (SceneManager.GetActiveScene().name == "GameOver")
         {
-            _state = GameState.GameOver;
+            State = GameState.GameOver;
         }
     }
+
+    void Start()
+    {
+        Debug.LogWarning(SceneManager.GetActiveScene().name);
+    }
+
     void Update()
     {
-        if(_state == GameState.Prepare)
+        if(State == GameState.Prepare)
         {
-
+            _isGet = false;
         }
-        else if(_state == GameState.InGame)
+        else if(State == GameState.InGame)
         {
             // 2周目はNullになった  
             if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
-            //if(TimerFlag) Timer += Time.deltaTime;
+            if (!_isGet)
+            {
+                SetGeneratorAndCompareId();
+                _isGet = true;
+            }
+            Debug.Log("IDs.Count: " + IDs.Count);
         }
-        else if(_state == GameState.Clear)
+        else if(State == GameState.Clear)
         {
-
+            IDs.Clear(); //初期化しないとリストの要素が増加
         }
-        else if (_state == GameState.GameOver)
+        else if (State == GameState.GameOver)
         {
-            
+            IDs.Clear();
         }
     }
 
@@ -81,13 +92,55 @@ public class GameManager : MonoBehaviour
     {
         if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
         _fadeOut.ToFadeOut("Clear");
-        _state = GameState.Clear; 
+        State = GameState.Clear; 
     }
+
     public void ToGameOver()
     {
         if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
         if (_fadeOut) _fadeOut.ToFadeOut("GameOver");
         else Debug.Log(_fadeOut + " がない state = GameOver");
-        _state = GameState.GameOver;
+        State = GameState.GameOver;
+    }
+
+    /// <summary>
+    /// 親オブジェクトにタグを付けている
+    /// 子オブジェクトにジェネレータースクリプトが付いている
+    /// </summary>
+    void GetGenerators()
+    {
+        //毎シーンロード時にNULLによるエラーが出る
+        GameObject go = GameObject.FindWithTag("Generators");
+        var childCount = go.transform.childCount;
+        for (var i = 0; i < childCount; i++)
+        {
+            _generators[i] = go.transform.GetChild(i).gameObject;
+        }
+    }
+
+    /// <summary>
+    /// ジェネレーターに
+    /// 生成するプレハブ・見かけ上のボタンの画像・生成インターバル
+    /// を入れる
+    /// </summary>
+    void SetGeneratorAndCompareId()
+    {
+        GetGenerators();
+        for (var i = 0; i < IDs.Count; i++)
+        {
+            Debug.Log("IDs: " + IDs[i]);
+            // キャラのデータリストの各IDと一致していたら
+            for (var j = 0; j < _characterDataList.achievementList.Count; j++)
+            {
+                if (_characterDataList.achievementList[j].Id.ToString() == IDs[i].ToString())
+                {
+                    //リストのプレハブを各ジェネレーターのプレハブを格納した変数に入れる
+                    var generator = _generators[i].GetComponent<Generator>();
+                    generator._prefab = _characterDataList.achievementList[j].Prefab;
+                    generator._image.GetComponent<Image>().sprite = _characterDataList.achievementList[j].CharaImage;
+                    generator._interval = _characterDataList.achievementList[j].Interval;
+                }
+            }
+        }
     }
 }
