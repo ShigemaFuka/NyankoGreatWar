@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nyanko_cow
   m_EditorClassIdentifier: 
   id: 2
-  maxHp: 5
+  maxHp: 10
   attack: 2
   speed: 0.5
   score: 0
