@@ -23,25 +23,29 @@ public class CostController : MonoBehaviour
     [SerializeField, Tooltip("初期の最大コスト")] float _initialMaxCost;
     [SerializeField, Tooltip("現在の保有コスト")] float _nowHadCost;
     public float NowHadCost { get => _nowHadCost; set => _nowHadCost = value; }
-    [SerializeField, Tooltip("加算する量")] float _addCost = 21.2f;
-    [SerializeField, Tooltip("コスト表示のテキスト")] Text _nowText;
-    [SerializeField, Tooltip("最大コスト表示のテキスト")] Text _nowMaxText;
-    [SerializeField, Tooltip("最大コスト増加のフラグ")] bool _costGreadUp = false;
-    [SerializeField, Tooltip("グレードアップに必要なコスト")]
+    [SerializeField, Tooltip("時間で加算する量")] float _addCost = 21.2f;
+    //[SerializeField, Tooltip("コスト表示のテキスト")] Text _nowText;
+    //[SerializeField, Tooltip("最大コスト表示のテキスト")] Text _nowMaxText;
+    //[SerializeField, Tooltip("最大コスト増加のフラグ")] bool _isGreadUp = false;
+    [SerializeField, Tooltip("グレードアップに必要なコスト")] float _costForGreadUp = 300f;
+    [SerializeField, Tooltip("最大コストの増加量")] float _addMaxCost = 1500f;
+    [SerializeField, Tooltip("")] GameObject _darkMask;
+    [SerializeField, Tooltip("グレードアップのボタン")] Button _button;
+
     void Start()
     {
         NowHadCost = 0;
-        _nowText.text = $"{NowHadCost}";
-        _nowMaxText.text = $":{NowMaxCost}";
+        NowMaxCost = _initialMaxCost = _costForGreadUp;
+        //グレードアップのボタン使用不可と視覚化するためのUI
+        _darkMask.SetActive(false);
+        _button.enabled = true;
     }
 
     void Update()
     {
         //時間経過とともに現在の保有コストを増やす
-        //if(NowHadCost < NowMaxCost) NowHadCost = GameManager.Instance.Timer * _addCost;
         if(NowHadCost < NowMaxCost) NowHadCost += Time.deltaTime * _addCost;
-        _nowText.text = $"{NowHadCost.ToString("00000")}";
-        _nowMaxText.text = $":{NowMaxCost.ToString("00000")}";
+        if (NowHadCost > NowMaxCost) NowHadCost = NowMaxCost;
     }
 
     /// <summary>
@@ -52,26 +56,36 @@ public class CostController : MonoBehaviour
     {
         NowHadCost -= charaCost;
     }
+
     /// <summary>
     /// キャラのコスト以上に保有コストがあるか否か
     /// </summary>
-    /// <param name="charaCost">生成するキャラのコスト</param>
-    public bool JudgeCostValue(float charaCost)
+    /// <param name="value">生成するキャラのコスト</param>
+    public bool JudgeCostValue(float value)
     {
-        if(0 <= NowHadCost - charaCost) return true;
+        if(0 <= NowHadCost - value) return true;
         else return false;
     }
+
     /// <summary>
     /// 貯蓄コストの量を増加
     /// グレードを上げる際に、保有コストを一定数消費する
+    /// ボタンで使用
     /// </summary>
     public void GreadUpMaxCost()
     {
-        if (_maxCost > _nowMaxCost)
+        if (_maxCost > _nowMaxCost && JudgeCostValue(_costForGreadUp))
         {
-            _nowMaxCost *= 1.5f;
+            NowHadCost -= _costForGreadUp;
+            _nowMaxCost += _addMaxCost;
         }
         //加算後に_maxCostをオーバーしても補正する
-        if (_maxCost <= _nowMaxCost) _nowMaxCost = _maxCost;
+        if (_maxCost <= _nowMaxCost)
+        { 
+            _nowMaxCost = _maxCost;
+            _darkMask.SetActive(true);
+           // 時間経過前にフラグ真にするのを防ぐ
+            _button.enabled = false;
+        }
     }
 }
