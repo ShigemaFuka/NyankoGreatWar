@@ -10,14 +10,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField, Tooltip("フェードアウト後にシーン遷移")] FadeOutIn _fadeOut = default;
-    public static GameManager Instance = default;
     static GameState _state = GameState.InGame;
     public GameState State { get => _state; set => _state = value; }
     [SerializeField, Tooltip("選択されたId")] List<string> _ids;
     public List<string> IDs { get => _ids; set => _ids = value; }
-    [SerializeField] CharacterDataList _characterDataList = default;
+    [SerializeField] CharacterDataAchievementList _characterDataList = default;
+    //[SerializeField] CharaDataList _charaDataList = default;
     [SerializeField, Tooltip("ジェネレーター")] GameObject[] _generators = new GameObject[3];
     [SerializeField, Tooltip("ジェネレーターを取得したかのフラグ")] bool _isGet;
+
+    [Tooltip("インスタンスを取得するためのパブリック変数")] public static GameManager Instance = default;
+    [Tooltip("Generatorsという名前の親オブジェクト")] GameObject go;
 
     public enum GameState
     {
@@ -30,8 +33,22 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
-        Debug.LogWarning(SceneManager.GetActiveScene().name);
+        // この処理は Start() に書いてもよいが、Awake() に書くことが多い。
+        // 参考: イベント関数の実行順序 https://docs.unity3d.com/ja/2019.4/Manual/ExecutionOrder.html
+        if (Instance)
+        {
+            // インスタンスが既にある場合は、破棄する
+            Debug.LogWarning($"SingletonSystem のインスタンスは既に存在するので、{gameObject.name} は破棄します。");
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            // このクラスのインスタンスが無かった場合は、自分を DontDestroyOnload に置く
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        //Debug.LogWarning(SceneManager.GetActiveScene().name);
         _isGet = false;
         //デバッグ時用
         if (SceneManager.GetActiveScene().name == "Start")
@@ -56,11 +73,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Debug.LogWarning(SceneManager.GetActiveScene().name);
-    }
-
     void Update()
     {
         if(State == GameState.Prepare)
@@ -73,10 +85,11 @@ public class GameManager : MonoBehaviour
             if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
             if (!_isGet)
             {
-                SetGeneratorAndCompareId();
+                go = GameObject.FindWithTag("Generators");
+                if(go) SetGeneratorAndCompareId();
                 _isGet = true;
             }
-            Debug.Log("IDs.Count: " + IDs.Count);
+            //Debug.Log("IDs.Count: " + IDs.Count);
         }
         else if(State == GameState.Clear)
         {
@@ -86,6 +99,7 @@ public class GameManager : MonoBehaviour
         {
             IDs.Clear();
         }
+        //Debug.Log("State: " + State);
     }
 
     public void ToClear()
@@ -109,9 +123,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void GetGenerators()
     {
-        //毎シーンロード時にNULLによるエラーが出る
-        GameObject go = GameObject.FindWithTag("Generators");
         var childCount = go.transform.childCount;
+        //Debug.Log("childCount : " + childCount);
         for (var i = 0; i < childCount; i++)
         {
             _generators[i] = go.transform.GetChild(i).gameObject;
@@ -128,7 +141,7 @@ public class GameManager : MonoBehaviour
         GetGenerators();
         for (var i = 0; i < IDs.Count; i++)
         {
-            Debug.Log("IDs: " + IDs[i]);
+            //Debug.Log("IDs: " + IDs[i]);
             // キャラのデータリストの各IDと一致していたら
             for (var j = 0; j < _characterDataList.achievementList.Count; j++)
             {
@@ -137,7 +150,10 @@ public class GameManager : MonoBehaviour
                     //リストのプレハブを各ジェネレーターのプレハブを格納した変数に入れる
                     var generator = _generators[i].GetComponent<Generator>();
                     generator._prefab = _characterDataList.achievementList[j].Prefab;
-                    generator._image.GetComponent<Image>().sprite = _characterDataList.achievementList[j].CharaImage;
+                    generator._image.sprite = _characterDataList.achievementList[j].CharaImage;
+                    var sp = generator._image.GetComponent<Image>();
+                    if (!sp.sprite) sp.sprite = _characterDataList.achievementList[j].CharaImage;
+                    //Debug.Log("sp.sprite : " + sp.sprite);
                     generator._interval = _characterDataList.achievementList[j].Interval;
                 }
             }

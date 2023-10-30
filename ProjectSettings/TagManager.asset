@@ -8,6 +8,10 @@ TagManager:
   - Chara
   - Castle
   - EnemyCastle
+  - DeckTag
+  - TableTag
+  - Generators
+  - GageSlider
   layers:
   - Default
   - TransparentFX

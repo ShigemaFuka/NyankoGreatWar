@@ -14,12 +14,14 @@ public class Generator : MonoBehaviour
     [SerializeField, Tooltip("true の場合、開始時にすぐ生成する")] bool _generateOnStart = true;
     [SerializeField, Tooltip("生成物を置いておく空の親オブジェクト")] GameObject _emptyParent;
     [SerializeField, Tooltip("コスト管理スクリプト")] CostController _costController;
-    [SerializeField, Tooltip("ボタンを暗くするUI(クリック判定なし)")] RawImage _darkMask;
+    [Tooltip("ボタンを暗くするUI(クリック判定なし)")] RawImage _darkMask;
     [SerializeField, Tooltip("準備したか")] bool _isPrepare;
+    [SerializeField, Tooltip("コストを表示するテキスト")] Text _costText;
+    [SerializeField, Tooltip("ボタンなどの機能が付いているゲームオブジェクト")] GameObject _gameObjectOfButton;
+    [Tooltip("時間経過前にフラグ真にするのを防ぐ")] Button _button;
     [Header("GMがセットするor参照する")]
     [SerializeField, Tooltip("一定時間おきに生成するプレハブ")] public GameObject _prefab = default;
-    [SerializeField, Tooltip("時間経過前にフラグ真にするのを防ぐ")] Button _button;
-    [SerializeField, Tooltip("見かけ上のボタンのUI")] public GameObject _image;
+    [SerializeField, Tooltip("見かけ上のボタンのUI")] public Image _image = null;
     [SerializeField, Tooltip("生成する間隔（秒）")] public float _interval = 1f;
     [Space]
     [Header("プレハブに依存")]
@@ -28,6 +30,12 @@ public class Generator : MonoBehaviour
     void Start()
     {
         _isPrepare = false;
+        _button = _gameObjectOfButton.GetComponent<Button>();
+        _darkMask = _gameObjectOfButton.transform.Find("DarkMask").GetComponent<RawImage>();
+        _costText = _gameObjectOfButton.transform.Find("Cost_Text").GetComponent<Text>();
+        _slider = _gameObjectOfButton.transform.Find("Gage_Slider").GetComponent<Slider>();
+        var markImage = _gameObjectOfButton.transform.Find("Mark").GetComponent<Image>();
+        markImage.sprite = _image.sprite;
     }
 
     void Update()
@@ -87,6 +95,7 @@ public class Generator : MonoBehaviour
         _darkMask.enabled = true;
         Move move = _prefab.GetComponent<Move>();
         _cost = move.CharacterData.Cost;
+        _costText.text = _cost.ToString();
         if (_slider)
         {
             _slider.maxValue = _interval;

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eec6f9009be26a41bb9f365064b0d9e, type: 3}
+  m_Name: Character Data List
+  m_EditorClassIdentifier: 
+  achievementList:
+  - id: 0
+    maxHp: 1
+    attack: 1
+    speed: 3.5
+    score: 0
+    selfImpactPower: 5
+    cost: 150
+    charaImage: {fileID: 21300000, guid: d1686043d87714e419283ab4b999a28b, type: 3}
+    prefab: {fileID: 5431928052098498892, guid: f47f3533cf6cd6445824b94cd6ed78d7, type: 3}
+    interval: 1.5
+    info: "\u751F\u6210\u901F\u5EA6\u30FB\u30B9\u30D4\u30FC\u30C9\u7279\u5316\nHP\u5373\u6B7B\n\u58C1\u5F79"
+  - id: 1
+    maxHp: 3
+    attack: 3
+    speed: 1
+    score: 0
+    selfImpactPower: 4
+    cost: 230
+    charaImage: {fileID: 21300000, guid: 36f6ce2b63795f04faf6061acbdab114, type: 3}
+    prefab: {fileID: 2757190562418780860, guid: 212ca1777ea3ec74bace52b1b0cfaf58, type: 3}
+    interval: 4.5
+    info: "\u653B\u6483\u7279\u5316\n\u304B\u306A\u308A\u5439\u304D\u98DB\u3076\n"
+  - id: 2
+    maxHp: 5
+    attack: 2
+    speed: 0.5
+    score: 0
+    selfImpactPower: 2.5
+    cost: 500
+    charaImage: {fileID: 21300000, guid: 9f429ad9e7209b14a96c0b5954da64a8, type: 3}
+    prefab: {fileID: 1985895728513248272, guid: da51a71665fd4b34fa30e00d5fe23ff5, type: 3}
+    interval: 10
+    info: "\u30BF\u30F3\u30AF\n\u304B\u306A\u308A\u9045\u3044\u901F\u5EA6"
+  - id: 3
+    maxHp: 30
+    attack: 10
+    speed: 1
+    score: 0
+    selfImpactPower: 1
+    cost: 3000
+    charaImage: {fileID: 21300000, guid: 809b81f90243f9946859042a979254b7, type: 3}
+    prefab: {fileID: 5431928052098498892, guid: fc4176941714dbf44befcb0a2b189779, type: 3}
+    interval: 60
+    info: "\u305D\u3046\u305D\u3046\u51FA\u9663\u3067\u304D\u306A\u3044"
+  - id: 4
+    maxHp: 3
+    attack: 2
+    speed: 3.2
+    score: 0
+    selfImpactPower: 4
+    cost: 220
+    charaImage: {fileID: 21300000, guid: 6b8dec5f5fa507240932ab02b623d58a, type: 3}
+    prefab: {fileID: 5431928052098498892, guid: bdc98484e9f5d1b44980a36dae91c523, type: 3}
+    interval: 2
+    info: "\u30B9\u30D4\u30FC\u30C9\u7279\u5316\n\u30CD\u30BA\u30DF\u3088\u308A\u306F\u3001\u9045\u304F\u30FB\u5439\u304D\u98DB\u3073\u3065\u3089\u3044\n\u30C8\u30E9\u3088\u308A\u306F\u3001\u65E9\u304F\u30FBHP\u306F\u5C11\u306A\u3044"

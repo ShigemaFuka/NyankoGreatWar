@@ -12,8 +12,9 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField, Tooltip("true の場合、開始時にすぐ生成する")] bool _generateOnStart = true;
     [Tooltip("タイマー計測用変数")] float _timer;
     [SerializeField, Tooltip("スポーン場所")] GameObject _gameObject;
-    [SerializeField, Tooltip("範囲の最小値")] float _minRange = 0f;
-    [SerializeField, Tooltip("範囲の最大値")] float _maxRange = 5f;
+    [SerializeField, Tooltip("インターバルの範囲の最小値")] float _minRange = 0f;
+    [SerializeField, Tooltip("インターバルの範囲の最大値")] float _maxRange = 5f;
+    [SerializeField, Tooltip("生成した敵を入れる親オブジェクト")] GameObject _emptyParent;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class EnemyGenerator : MonoBehaviour
         if (_timer > _interval)
         {
             _timer = 0;    // タイマーをリセットしている
-            Instantiate(_prefab, _gameObject.transform.position, Quaternion.identity);
+            Instantiate(_prefab, _gameObject.transform.position, Quaternion.identity, _emptyParent.transform);
             _interval = Random.Range(_minRange, _maxRange);
         }
     }
