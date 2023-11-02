@@ -4,6 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 一定時間おきに指定したプレハブから GameObject を生成するコンポーネント
 /// この中にボタンクリック時に、フラグを真にする関数を入れている
+/// GMのImage→GeneratorのImage→ボタンのImageに入れる
 /// </summary>
 public class Generator : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Generator : MonoBehaviour
     [Tooltip("時間経過前にフラグ真にするのを防ぐ")] Button _button;
     [Header("GMがセットするor参照する")]
     [SerializeField, Tooltip("一定時間おきに生成するプレハブ")] public GameObject _prefab = default;
-    [SerializeField, Tooltip("見かけ上のボタンのUI")] public Image _image = null;
+    [SerializeField, Tooltip("見かけ上のボタンのUIをセットするオブジェクト")] public Image _image = null;
     [SerializeField, Tooltip("生成する間隔（秒）")] public float _interval = 1f;
     [Space]
     [Header("プレハブに依存")]

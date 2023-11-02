@@ -1360,7 +1360,7 @@ MonoBehaviour:
   _isPrepare: 0
   _costText: {fileID: 0}
   _gameObjectOfButton: {fileID: 1116325820}
-  _prefab: {fileID: 1372313937}
+  _prefab: {fileID: 5431928052098498892, guid: fc4176941714dbf44befcb0a2b189779, type: 3}
   _image: {fileID: 1116325821}
   _interval: 10
   _cost: 0

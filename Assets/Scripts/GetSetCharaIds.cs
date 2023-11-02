@@ -31,8 +31,9 @@ public class GetSetCharaIds : MonoBehaviour
         for (var i = 0; i < _ids.Count; i++)
         {
             var go = transform.GetChild(i);
-            var charaIds = go.GetComponent<CharaIds>();
+            var charaIds = go.GetComponent<CharaIds>()._characterData;
             this._ids[i] = charaIds.Id.ToString();
+            //this._ids[i] = charaIds.ToString();
             GameManager.Instance.IDs.Add(this._ids[i]); 
             //Debug.Log("GameManager.Instance.IDs[i]" + GameManager.Instance.IDs[i]);
         }

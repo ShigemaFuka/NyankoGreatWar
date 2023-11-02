@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
             {
                 go = GameObject.FindWithTag("Generators");
                 if(go) SetGeneratorAndCompareId();
-                _isGet = true;
+                //_isGet = true;
             }
             //Debug.Log("IDs.Count: " + IDs.Count);
         }
@@ -158,5 +158,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        _isGet = true;
     }
 }
