@@ -9,10 +9,8 @@ using System.Collections.Generic;
 public class PartySetController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler
 {
     RectTransform _rectTransform = default;
-    /// <summary>動かす前に所属していたデッキ</summary>
-    Transform _originDeck = default;
-    /// <summary>カードをデッキの外に置けるかどうかの設定</summary>
-    [SerializeField] bool _canPutOutOfDeck = false;
+    [Tooltip("動かす前に所属していたデッキ")] Transform _originDeck = default;
+    [SerializeField, Tooltip("カードをデッキの外に置けるかどうかの設定")] bool _canPutOutOfDeck = false;
     /// <summary>
     /// テーブルオブジェクト（"TableTag" が付いている UI オブジェクト）
     /// 元からオブジェクトがあるデッキでも、これから置くデッキでもないエリアのUIに当たる
