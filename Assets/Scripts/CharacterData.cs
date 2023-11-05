@@ -11,12 +11,8 @@ using UnityEngine;
 /// </summary>
 public class CharacterData : ScriptableObject
 {
-    //[SerializeField, Tooltip("intå^")] int id;
-    //public int Id { get { return id; } }
     [SerializeField, Tooltip("intå^")] Ids id;
     public Ids Id { get { return id; } }
-
-    //public Ids id;
     [SerializeField] int maxHp;
     public int Maxhp { get { return maxHp; } }
     [SerializeField, Tooltip("å≈íËÇÃATKíl")] int attack;

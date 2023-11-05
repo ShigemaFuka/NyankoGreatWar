@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 public class CharaIds : MonoBehaviour
 {
-    [SerializeField] public CharacterData _characterData;
+    public CharacterData _characterData;
     //[SerializeField] Ids _ids;
     //public Ids Id { get => _ids; set => _ids = value; }
     //public enum Ids
