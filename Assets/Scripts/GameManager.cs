@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("選択されたId")] List<string> _ids;
     public List<string> IDs { get => _ids; set => _ids = value; }
     [SerializeField] CharacterDataAchievementList _characterDataList = default;
-    //[SerializeField] CharaDataList _charaDataList = default;
     [SerializeField, Tooltip("ジェネレーター")] GameObject[] _generators = new GameObject[3];
     [SerializeField, Tooltip("ジェネレーターを取得したかのフラグ")] bool _isGet;
 
@@ -71,6 +70,8 @@ public class GameManager : MonoBehaviour
         {
             State = GameState.GameOver;
         }
+        BGMManager bGMManager = FindObjectOfType<BGMManager>();
+        bGMManager.PlayBGM();
     }
 
     void Update()
