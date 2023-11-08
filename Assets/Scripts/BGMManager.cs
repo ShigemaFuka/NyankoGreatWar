@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// GMのGameState次第で流すBGMを変える
@@ -10,33 +11,43 @@ public class BGMManager : MonoBehaviour
     [SerializeField, Tooltip("クリア画面のBGM")] AudioClip _onClear;
     [SerializeField, Tooltip("ゲームオーバー画面のBGM")] AudioClip _onGameOver;
     [SerializeField] AudioSource _audioSource;
-    AudioClip _clip;
+    [SerializeField] AudioClip _clip;
 
     void Start()
     {
-        
-    }
 
+    }
+    public void PlayedBGM(Scene nextScene, Scene mode)
+    {
+        PlayBGM();
+    }
     public void PlayBGM()
     {
-        if (GameManager.Instance.State == GameManager.GameState.Start)
+        //_audioSource = GetComponent<AudioSource>();
+        //string sceneName = SceneManager.GetActiveScene().name;
+        switch (SceneManager.GetActiveScene().name)
         {
-            _clip = _onTittle;
+            case "Start":
+                //case "SelectParty":
+                _clip = _onTittle;
+                break;
+            case "Test":
+                _clip = _onBattle;
+                break;
+            case "Clear":
+                _clip = _onClear;
+                break;
+            case "GameOver":
+                _clip = _onGameOver;
+                break;
         }
-        else if (GameManager.Instance.State == GameManager.GameState.InGame)
+        if (_audioSource)
         {
-            //_audioSource.PlayOneShot(_onBattle);
-            _clip = _onBattle;
+            _audioSource.Stop();
+            _audioSource.clip = _clip;
+            Debug.Log("_clip : " + _clip);
+            Debug.Log($"PlayingClip : {_audioSource.clip}");
+            _audioSource.Play();
         }
-        else if (GameManager.Instance.State == GameManager.GameState.Clear)
-        {
-            _clip = _onClear;
-        }
-        else if (GameManager.Instance.State == GameManager.GameState.GameOver)
-        {
-            _clip = _onGameOver;
-        }
-        _audioSource.clip = _clip;
-        _audioSource.Play();
     }
 }

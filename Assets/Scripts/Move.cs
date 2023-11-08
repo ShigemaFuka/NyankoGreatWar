@@ -9,11 +9,13 @@ public class Move : MonoBehaviour
     [SerializeField] Vector2 _powerDirection = Vector2.up;
     [SerializeField, Tooltip("キャラのデータ")] CharacterData _characterData;
     public CharacterData CharacterData { get => _characterData; set => _characterData = value; }
+    [SerializeField] AudioSource _audioSourse;
 
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _charaHp = this.gameObject.GetComponent<CharaHp>();
+        _audioSourse = GameObject.Find("SE_Impact").GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -34,5 +36,6 @@ public class Move : MonoBehaviour
     {
         // 少し後方に弾くようにする
         _rigidbody2D.AddForce(_powerDirection * CharacterData.SelfImpactPower, ForceMode2D.Impulse);
+        _audioSourse.PlayOneShot(_audioSourse.clip);
     }
 }

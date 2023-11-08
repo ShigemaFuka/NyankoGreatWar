@@ -12,20 +12,10 @@ public class ChangeScene : MonoBehaviour
 
     public void OnClick()
     {
-        if (Instance.State == GameState.Start)
+        //GM‚ÅState‚ªInGame‚É‚È‚ç‚È‚©‚Á‚½
+        if (_sceneName == "Test")
         {
-            Instance.State = GameState.Prepare;
-            Debug.Log("Start->Prepare");
-        }
-        else if (Instance.State == GameState.Prepare)
-        {
-            Instance.State = GameState.InGame;
-            Debug.Log("Prepare->InGame");
-        }
-        else if (Instance.State == GameState.Clear || Instance.State == GameState.GameOver)
-        {
-            Instance.State = GameState.Start;
-            Debug.Log("Clear||GameOver->Start");
+            GameManager.Instance.State = GameState.InGame;
         }
         SceneManager.LoadScene(_sceneName);
     }

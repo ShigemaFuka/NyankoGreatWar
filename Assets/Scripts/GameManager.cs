@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("インスタンスを取得するためのパブリック変数")] public static GameManager Instance = default;
     [Tooltip("Generatorsという名前の親オブジェクト")] GameObject go;
+    [SerializeField] BGMManager _BGMManager;
 
     public enum GameState
     {
@@ -49,50 +50,48 @@ public class GameManager : MonoBehaviour
 
         //Debug.LogWarning(SceneManager.GetActiveScene().name);
         _isGet = false;
-        //デバッグ時用
-        if (SceneManager.GetActiveScene().name == "Start")
+
+        switch (SceneManager.GetActiveScene().name)
         {
-            State = GameState.Start;
+            case "Start":
+                State = GameState.Start;
+                _BGMManager = FindObjectOfType<BGMManager>();
+                break;
+            case "SelectParty":
+                State = GameState.Prepare;
+                break;
+            case "Test":
+                State = GameState.InGame;
+                break;
+            case "Clear":
+                State = GameState.Clear;
+                break;
+            case "GameOver":
+                State = GameState.GameOver;
+                break;
         }
-        if (SceneManager.GetActiveScene().name == "SelectParty")
-        {
-            State = GameState.Prepare;
-        }
-        if (SceneManager.GetActiveScene().name == "Test")
-        {
-            State = GameState.InGame;
-        }
-        if (SceneManager.GetActiveScene().name == "Clear")
-        {
-            State = GameState.Clear;
-        }
-        if (SceneManager.GetActiveScene().name == "GameOver")
-        {
-            State = GameState.GameOver;
-        }
-        BGMManager bGMManager = FindObjectOfType<BGMManager>();
-        bGMManager.PlayBGM();
+        SceneManager.activeSceneChanged += _BGMManager.PlayedBGM;
     }
 
     void Update()
     {
-        if(State == GameState.Prepare)
+        if (State == GameState.Prepare)
         {
             _isGet = false;
         }
-        else if(State == GameState.InGame)
+        else if (State == GameState.InGame)
         {
             // 2周目はNullになった  
-            if(!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
+            if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
             if (!_isGet)
             {
                 go = GameObject.FindWithTag("Generators");
-                if(go) SetGeneratorAndCompareId();
+                if (go) SetGeneratorAndCompareId();
                 //_isGet = true;
             }
             //Debug.Log("IDs.Count: " + IDs.Count);
         }
-        else if(State == GameState.Clear)
+        else if (State == GameState.Clear)
         {
             IDs.Clear(); //初期化しないとリストの要素が増加
         }
@@ -100,14 +99,14 @@ public class GameManager : MonoBehaviour
         {
             IDs.Clear();
         }
-        //Debug.Log("State: " + State);
+        Debug.Log("State: " + State);
     }
 
     public void ToClear()
     {
         if (!_fadeOut) _fadeOut = FindAnyObjectByType<FadeOutIn>();
         _fadeOut.ToFadeOut("Clear");
-        State = GameState.Clear; 
+        State = GameState.Clear;
     }
 
     public void ToGameOver()
