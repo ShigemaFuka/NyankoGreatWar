@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5431928052098498888}
   - component: {fileID: 5431928052098498889}
   - component: {fileID: -1463720179802214862}
-  - component: {fileID: 6751652434323326867}
+  - component: {fileID: 6781908278499589454}
   m_Layer: 7
   m_Name: Nyanko_rabbit
   m_TagString: Chara
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5431928052098498892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 6b8dec5f5fa507240932ab02b623d58a, type: 3}
+  m_SortingOrder: 9
+  m_Sprite: {fileID: 21300000, guid: 2e215c39a9d4e4f448f7d6a6fc1d9264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _powerDirection: {x: 1, y: 1}
   _characterData: {fileID: 11400000, guid: 64fb1d7f5bcff2843a046d2322ff2306, type: 2}
+  _audioSourse: {fileID: 0}
 --- !u!114 &-1463720179802214862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,8 +141,8 @@ MonoBehaviour:
   _deathLimit: 1
   _tagNameOfTarget: Enemy
   _tagNameOfCastle: EnemyCastle
---- !u!58 &6751652434323326867
-CircleCollider2D:
+--- !u!70 &6781908278499589454
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -153,6 +154,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.09}
-  serializedVersion: 2
-  m_Radius: 0.65
+  m_Offset: {x: -0.0954965, y: 0.046583734}
+  m_Size: {x: 0.7309933, y: 1.0148325}
+  m_Direction: 0

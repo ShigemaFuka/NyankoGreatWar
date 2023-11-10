@@ -17,6 +17,6 @@ MonoBehaviour:
   attack: 2
   speed: 3
   score: 0
-  selfImpactPower: 4
+  selfImpactPower: 3
   cost: 220
   info: "\u30B9\u30D4\u30FC\u30C9\u7279\u5316\n\u30CD\u30BA\u30DF\u3088\u308A\u306F\u3001\u9045\u304F\u30FB\u5439\u304D\u98DB\u3073\u3065\u3089\u3044\n\u30C8\u30E9\u3088\u308A\u306F\u3001\u65E9\u304F\u30FBHP\u306F\u5C11\u306A\u3044"

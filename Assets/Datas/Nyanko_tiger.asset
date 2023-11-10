@@ -18,5 +18,5 @@ MonoBehaviour:
   speed: 1
   score: 0
   selfImpactPower: 4
-  cost: 230
+  cost: 250
   info: "\u653B\u6483\u7279\u5316\n\u304B\u306A\u308A\u5439\u304D\u98DB\u3076\n\n\n"

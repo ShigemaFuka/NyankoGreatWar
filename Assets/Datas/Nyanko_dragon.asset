@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Nyanko_dragon
   m_EditorClassIdentifier: 
   id: 3
-  maxHp: 30
+  maxHp: 15
   attack: 10
-  speed: 1
-  score: 0
-  selfImpactPower: 1
-  cost: 3000
+  speed: 0.2
+  range: 1
+  selfImpactPower: 3
+  cost: 3500
   info: "\u6700\u9AD8HP\u30FB\u30B3\u30B9\u30C8\n\u307B\u3068\u3093\u3069\u5439\u304D\u98DB\u3070\u306A\u3044\n\uFF08\u653B\u6483\u5224\u5B9A\u306E\u305F\u3081\u306B\u3001\u518D\u63A5\u89E6\u7A0B\u5EA6\u306E\u5439\u304D\u98DB\u3073\u306F\u5FC5\u8981\uFF09"
