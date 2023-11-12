@@ -95,7 +95,7 @@ public class Generator : MonoBehaviour
     {
         _darkMask.enabled = true;
         Move move = _prefab.GetComponent<Move>();
-        _cost = move.CharacterData.Cost;
+        if(move) _cost = move.CharacterData.Cost;
         _costText.text = _cost.ToString();
         if (_slider)
         {
@@ -105,8 +105,7 @@ public class Generator : MonoBehaviour
         _button.enabled = false;
         if (_generateOnStart)
         {
-            _timer = _interval;
-            _button.enabled = true;
+            Instantiate(_prefab, _gameObject.transform.position, Quaternion.identity, _emptyParent.transform);
         }
     }
 }

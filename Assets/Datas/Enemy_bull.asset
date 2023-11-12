@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fb05ae1ab304047862e3ec808a7e8b, type: 3}
+  m_Name: Enemy_bull
+  m_EditorClassIdentifier: 
+  id: 5
+  maxHp: 7
+  attack: 2
+  speed: -1
+  score: 0
+  selfImpactPower: 3
+  cost: 0
+  info: "Speed\u304C\u30DE\u30A4\u30CA\u30B9\u3060\u3068\u53F3\u306B\u79FB\u52D5\n\u4E2D\u304F\u3089\u3044"

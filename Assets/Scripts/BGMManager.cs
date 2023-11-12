@@ -23,12 +23,9 @@ public class BGMManager : MonoBehaviour
     }
     public void PlayBGM()
     {
-        //_audioSource = GetComponent<AudioSource>();
-        //string sceneName = SceneManager.GetActiveScene().name;
         switch (SceneManager.GetActiveScene().name)
         {
             case "Start":
-                //case "SelectParty":
                 _clip = _onTittle;
                 break;
             case "Test":
@@ -43,10 +40,8 @@ public class BGMManager : MonoBehaviour
         }
         if (_audioSource)
         {
-            _audioSource.Stop();
+            //_audioSource.Stop();
             _audioSource.clip = _clip;
-            Debug.Log("_clip : " + _clip);
-            Debug.Log($"PlayingClip : {_audioSource.clip}");
             _audioSource.Play();
         }
     }

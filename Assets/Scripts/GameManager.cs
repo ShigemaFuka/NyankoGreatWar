@@ -87,9 +87,7 @@ public class GameManager : MonoBehaviour
             {
                 go = GameObject.FindWithTag("Generators");
                 if (go) SetGeneratorAndCompareId();
-                //_isGet = true;
             }
-            //Debug.Log("IDs.Count: " + IDs.Count);
         }
         else if (State == GameState.Clear)
         {
@@ -99,7 +97,7 @@ public class GameManager : MonoBehaviour
         {
             IDs.Clear();
         }
-        Debug.Log("State: " + State);
+        //Debug.Log("State: " + State);
     }
 
     public void ToClear()
@@ -124,7 +122,6 @@ public class GameManager : MonoBehaviour
     void GetGenerators()
     {
         var childCount = go.transform.childCount;
-        //Debug.Log("childCount : " + childCount);
         for (var i = 0; i < childCount; i++)
         {
             _generators[i] = go.transform.GetChild(i).gameObject;
@@ -141,7 +138,6 @@ public class GameManager : MonoBehaviour
         GetGenerators();
         for (var i = 0; i < IDs.Count; i++)
         {
-            //Debug.Log("IDs: " + IDs[i]);
             // キャラのデータリストの各IDと一致していたら
             for (var j = 0; j < _characterDataList.achievementList.Count; j++)
             {
@@ -153,7 +149,6 @@ public class GameManager : MonoBehaviour
                     generator._image.sprite = _characterDataList.achievementList[j].CharaImage;
                     var sp = generator._image.GetComponent<Image>();
                     if (!sp.sprite) sp.sprite = _characterDataList.achievementList[j].CharaImage;
-                    //Debug.Log("sp.sprite : " + sp.sprite);
                     generator._interval = _characterDataList.achievementList[j].Interval;
                 }
             }

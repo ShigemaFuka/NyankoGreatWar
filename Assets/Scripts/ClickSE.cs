@@ -13,7 +13,7 @@ public class ClickSE : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             _audioSource.PlayOneShot(_audioSource.clip);
         }

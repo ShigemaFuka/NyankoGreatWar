@@ -14,7 +14,11 @@ public class TakeAndShowParamator : MonoBehaviour
     [SerializeField, Tooltip("移動速度")] Text _speed;
     [SerializeField, Tooltip("吹き飛び度")] Text _selfImpactPower;
     [SerializeField, Tooltip("生成インターバル")] Text _interval;
+    [SerializeField, Tooltip("攻撃の射程")] Text _attackRange;
     [SerializeField, Tooltip("キャラデータ一覧（インターバル参照のため）")] CharacterDataAchievementList _characterDataAchievementList = null;
+    [SerializeField, Tooltip("射程が近距離なら何と表記するか")] string _shortRange = "近";
+    [SerializeField, Tooltip("射程が遠距離なら何と表記するか")] string _longRange = "遠";
+
 
     /// <summary>
     /// テキストを初期化（値の非表示）
@@ -27,6 +31,7 @@ public class TakeAndShowParamator : MonoBehaviour
         _speed.text = "";
         _selfImpactPower.text = "";
         _interval.text = "";
+        _attackRange.text = "";
     }
 
     /// <summary>
@@ -41,6 +46,7 @@ public class TakeAndShowParamator : MonoBehaviour
         _cost.text = cData.Cost.ToString();
         _speed.text = cData.Speed.ToString();
         _selfImpactPower.text = cData.SelfImpactPower.ToString();
+        ChangeAttackRangeText(cData);
     }
 
     /// <summary>
@@ -59,5 +65,21 @@ public class TakeAndShowParamator : MonoBehaviour
     public void Reset()
     {
         Start();
+    }
+
+    /// <summary>
+    /// enumのLong・Shortをstringの遠・近にする
+    /// </summary>
+    /// <param name="cData">CharaIdsにアタッチした各キャラのデータ</param>
+    void ChangeAttackRangeText(CharacterData cData)
+    {
+        if (cData.AttackRange == CharacterData.Range.Short)
+        {
+            _attackRange.text = _shortRange;
+        }
+        else if (cData.AttackRange == CharacterData.Range.Long)
+        {
+            _attackRange.text = _longRange;
+        }
     }
 }

@@ -9,14 +9,14 @@ using UnityEngine;
 /// </summary>
 public class CharaHp : MonoBehaviour
 {
-    //[SerializeField, Tooltip("キャラのデータ")] CharacterData _characterData;
-    int _hp;
+    [Tooltip("TriggerAttackで参照される")] public int _hp;
     [Tooltip("EnemyHpで参照される")] public int _attackValue;
     [SerializeField, Tooltip("再接触のためのフラグ")] public bool _isTouch;
     Move _move;
     [SerializeField, Tooltip("死ぬまでの時間")] float _deathLimit = 1.0f;
     [SerializeField, Tooltip("タグ名：ダメージを与える対象")] string _tagNameOfTarget;
     [SerializeField, Tooltip("タグ名：城")] string _tagNameOfCastle;
+    [SerializeField, Tooltip("UpdateでPushし続けないように管理")] bool _isPushed;
 
     void Start()
     {
@@ -30,10 +30,11 @@ public class CharaHp : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
         // 敵のタグ付いてたら以下を実行
-        if(coll.gameObject.CompareTag(_tagNameOfTarget))
+        if (coll.gameObject.CompareTag(_tagNameOfTarget))
         {
             // 敵キャラごとに攻撃値が異なっていても良いように
             CharaHp charaHp = coll.gameObject.GetComponent<CharaHp>();
+            // 自身のHPを減らす
             _hp -= charaHp._attackValue;
             _isTouch = true;
             _move.Push();
@@ -46,14 +47,23 @@ public class CharaHp : MonoBehaviour
         }
         // 跳ねたあと地面とか他のとこに触れたら再度進行させる
         else _isTouch = false;
-        DeathAction();
     }
 
+    void Update()
+    {
+        if(!_isPushed)
+            DeathAction();
+    }
+
+    /// <summary>
+    /// Triggerでの攻撃に対応するための、Updateでチェックされ次第、実行される関数
+    /// </summary>
     void DeathAction()
     {
         if (_hp <= 0)
         {
             _move.Push();
+            _isPushed = true;
             Destroy(gameObject, _deathLimit);
         }
     }

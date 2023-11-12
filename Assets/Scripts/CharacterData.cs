@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using static CharacterData;
 
 [CreateAssetMenu(menuName = "ScriptableObject/CharacterData")]
 // インスペクター上に表示 
@@ -11,7 +13,7 @@ using UnityEngine;
 /// </summary>
 public class CharacterData : ScriptableObject
 {
-    [SerializeField, Tooltip("int型")] Ids id;
+    [SerializeField, Tooltip("参照されていないが、インスペクター上で視覚的に分かるように設定した")] Ids id;
     public Ids Id { get { return id; } }
     [SerializeField] int maxHp;
     public int Maxhp { get { return maxHp; } }
@@ -19,8 +21,10 @@ public class CharacterData : ScriptableObject
     public int Attack { get { return attack; } }
     [SerializeField] float speed;
     public float Speed { get { return speed; } }
-    [SerializeField, Tooltip("このキャラをキルしたときのスコア")] int score;
-    public int Score { get { return score; } }
+    //[SerializeField, Tooltip("このキャラをキルしたときのスコア")] int score;
+    //public int Score { get { return score; } }
+    [SerializeField, Tooltip("攻撃の射程")] Range range;
+    public Range AttackRange { get { return range; } }
     [SerializeField, Tooltip("敵キャラ接触時に自身がどれくらい吹き飛ぶか")] float selfImpactPower;
     public float SelfImpactPower { get { return selfImpactPower; } }
     public float Cost { get { return cost; } }
@@ -34,5 +38,11 @@ public class CharacterData : ScriptableObject
         Dragon,
         Rabbit,
         None
+    }
+
+    public enum Range
+    {
+        Short,
+        Long
     }
 }

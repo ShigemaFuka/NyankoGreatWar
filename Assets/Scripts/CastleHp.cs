@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CastleHp : MonoBehaviour
 {
     [SerializeField] int _maxHp;
-    [SerializeField] int _hp;
+    [Tooltip("TriggerAttackで参照される")] public int _hp;
     [SerializeField, Tooltip("スライダー")] Slider _hpSlider;
     [SerializeField, Tooltip("タグ名：ダメージを与えてくるもの")] string _tagName;
     [SerializeField, Tooltip("敵の城か。真：Clear、偽：GameOver")] 
@@ -24,6 +24,8 @@ public class CastleHp : MonoBehaviour
     }
     void Update()
     {
+        _hpSlider.value = _hp;
+
         if (_hp <= 0)
         {
             Destroy(gameObject);
@@ -42,7 +44,6 @@ public class CastleHp : MonoBehaviour
             CharaHp _charaHp = coll.gameObject.GetComponent<CharaHp>();
             // HP減らしていく
             _hp = _hp - _charaHp._attackValue;
-            _hpSlider.value = _hp;
 
             Debug.Log(_hp + this.gameObject.name);
         }
